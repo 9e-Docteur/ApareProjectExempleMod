@@ -1,0 +1,46 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+    id 'java'
+    //id 'org.jetbrains.gradle.plugin.idea-ext' version '0.6'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+def modName = "ExempleMod"
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dir 'libs'
+    }
+}
+
+dependencies {
+    implementation 'blank:ApareProject-1.0:SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+def jarFile = file('C:/ApareProject/Mods/' + modName +'.jar')
+jar {
+    from sourceSets.main.output
+    archiveFileName = jarFile.name
+    destinationDirectory = jarFile.parentFile
+}
+
+task runApare {
+    dependsOn jar
+    doLast {
+        // Exporter le projet en jar dans C:\ApareProject\Mods
+
+        // Lancer l'application Java
+        javaexec {
+            main = 'be.ninedocteur.apare.Apare'
+            classpath = files("$projectDir/libs/*", jarFile)
+            args = ['-cp', classpath.asPath, 'be.ninedocteur.apare.Apare']
+        }
+    }
+}
