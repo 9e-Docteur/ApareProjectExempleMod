@@ -1,14 +1,14 @@
 package com.username.modname;
 
 import be.ninedocteur.apare.Apare;
-import be.ninedocteur.apare.api.Mod;
-import be.ninedocteur.apare.api.ModAddon;
+import be.ninedocteur.apare.mod.Mod;
+import be.ninedocteur.apare.mod.ModAddon;
 import be.ninedocteur.apare.utils.Logger;
 
 @Mod(ExempleMod.class)
 public class ExempleMod extends ModAddon {
     public ExempleMod() {
-        super("modName", "modVersion");
+        super("Exemple Mod", "1.0", "Author Name");
     }
 
     @Override
